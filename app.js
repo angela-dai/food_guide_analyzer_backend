@@ -6,9 +6,10 @@ const bodyParser = require('body-parser');
 const request = require('request');
 
 const secure_keys = require('./secure_keys.json');
+const config = require('./config.json');
 
 const app = express();
-const port = 3001;
+const port = config.port;
 
 function getFilterList() {
     file = fs.readFileSync('./filter_foods');
