@@ -66,7 +66,6 @@ cheddar
 cheese
 cheesecake
 cherry
-chew
 chick peas
 chicken
 chili
@@ -111,24 +110,18 @@ dairy
 dandelion greens
 Danish pastry
 dates
-dessert
 dill
-dip
 dough
 doughnut
 dragonfruit
 dressing
-dried
-dry
 durian
-eat
 Edam cheese
 egg
 eggplant
 elderberry
 endive
 fava beans
-feast
 fennel
 fig
 fillet
@@ -156,10 +149,8 @@ green bean
 green tea
 green onion
 greens
-grub
 guacamole
 guava
-gyro
 halibut
 ham
 hamburger
@@ -169,11 +160,9 @@ herbs
 honey
 honeydew
 horseradish
-hot
 hot dog
 hot sauce
 hummus
-ice
 ice cream
 ice cream cone
 iceberg lettuce
@@ -182,7 +171,6 @@ icing
 jackfruit
 jalapeño
 jam
-jelly
 jellybeans
 jicama
 jimmies
@@ -193,9 +181,7 @@ ketchup
 kettle
 kettle corn
 kidney beans
-kitchen
 kiwi
-knife
 kohlrabi
 kumquat
 lamb
@@ -213,8 +199,6 @@ liver
 loaf
 lobster
 lollipop
-loquat
-lox
 lunchmeat
 lychee
 macaroni
@@ -247,7 +231,6 @@ mole sauce
 mozzarella
 muffin
 mug
-munch
 mushroom
 mussels
 mustard
@@ -267,8 +250,6 @@ olive
 omelet
 onion
 orange
-order
-oregano
 oyster
 pancake
 papaya
@@ -346,7 +327,6 @@ sauerkraut
 sausage
 savory
 scallops
-scrambled
 seaweed
 seeds
 sesame seed
@@ -387,7 +367,6 @@ sub sandwich
 submarine sandwich
 succotash
 suet
-sugar
 summer squash
 sundae
 sunflower
@@ -417,7 +396,6 @@ tuna
 turkey
 turmeric
 turnip
-ugli fruit
 vanilla
 veal
 vegetable
@@ -430,8 +408,6 @@ wasabi
 water chestnut
 watercress
 watermelon
-wheat
-whey
 whipped cream
 yam
 yogurt
