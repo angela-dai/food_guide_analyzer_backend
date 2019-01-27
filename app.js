@@ -9,6 +9,12 @@ const secure_keys = require('./secure_keys.json');
 const app = express();
 const port = 3001;
 
+const Promise = require('bluebird')
+const AppDAO = require('./dao')
+const AssociationsRepository = require('./associations_repository')
+const MainRepository = require('./main_repository')
+const TagsRepository = require('./tags_repository')
+
 function postToAzure(path, res) {
     request({
         url: 'http://canadacentral.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags',
@@ -33,29 +39,6 @@ function postToAzure(path, res) {
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-<<<<<<< HEAD
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-app.post('/submission', (req, res) => {
-    var form = new formidable.IncomingForm();
-    form.parse(req, (err, fields, files) => {
-        console.log('Got a form!');
-        if(err){
-            console.error('Error', err);
-        }
-        console.log('Fields', fields);
-        console.log('Files', files);
-        console.log(files.image.path);
-        postToAzure(files.image.path, res);
-    });
-});
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`);
-    console.log(`Using key ${secure_keys.key1}!`);
-});
-=======
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 function processPhotoTags(jsonPhotoTags) {
@@ -66,6 +49,8 @@ function processPhotoTags(jsonPhotoTags) {
   }
   return tags;
 }
+// is this the all the tags? I'll use them to add into database
+
 
 function foodGroupsTrend(sqlResponseData) {
   // get proportion of each, month, day
@@ -103,4 +88,62 @@ function foodGroupsTrend(sqlResponseData) {
   var result = {vegetable: resultVeg, protein: resultPro, grain: resultGrain};
   return JSON.stringify(result);
 }
->>>>>>> yutian
+
+function database() {
+  const dao = new AppDAO('./database.sqlite3')
+  const assocRepo = new AssociationsRepository(dao)
+  const mainRepo = new MainRepository(dao)
+  const tagsRepo = new TagsRepository(dao)
+  let mainId
+
+  mainRepo.createTable()
+    .then(() => assocRepo.createTable())
+    .then(() => projectRepo.create(blogProjectData.name))
+    .then((data) => {
+      projectId = data.id
+      const tasks = [
+        {
+          name: 'Outline',
+          description: 'High level overview of sections',
+          isComplete: 1,
+          projectId
+        },
+        {
+          name: 'Write',
+          description: 'Write article contents and code examples',
+          isComplete: 0,
+          projectId
+        }
+      ]
+      return Promise.all(tasks.map((task) => {
+        const { name, description, isComplete, projectId } = task
+        return taskRepo.create(name, description, isComplete, projectId)
+      }))
+    })
+    .then(() => projectRepo.getById(projectId))
+    .then((project) => {
+      console.log(`\nRetreived project from database`)
+      console.log(`project id = ${project.id}`)
+      console.log(`project name = ${project.name}`)
+      return projectRepo.getTasks(project.id)
+    })
+    .then((tasks) => {
+      console.log('\nRetrieved project tasks from database')
+      return new Promise((resolve, reject) => {
+        tasks.forEach((task) => {
+          console.log(`task id = ${task.id}`)
+          console.log(`task name = ${task.name}`)
+          console.log(`task description = ${task.description}`)
+          console.log(`task isComplete = ${task.isComplete}`)
+          console.log(`task projectId = ${task.projectId}`)
+        })
+      })
+      resolve('success')
+    })
+    .catch((err) => {
+      console.log('Error: ')
+      console.log(JSON.stringify(err))
+    })
+}
+
+database()

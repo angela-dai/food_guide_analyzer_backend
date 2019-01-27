@@ -9,10 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "form-data": "^2.3.3",
     "formidable": "^1.2.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "sqlite": "^3.0.0",
+    "sqlite3": "^4.0.6"
   }
 }
