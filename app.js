@@ -1,5 +1,6 @@
 const fs = require('fs');
 const express = require('express');
+const cors = require('cors');
 const formidable = require('formidable');
 const bodyParser = require('body-parser');
 const request = require('request');
@@ -35,6 +36,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.post('/submission', (req, res) => {
     var form = new formidable.IncomingForm();
