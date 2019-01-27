@@ -25,9 +25,7 @@ class MainRepository {
   }
 
   getAll() {
-    return this.dao.all(`SELECT * FROM main`)
+    return this.dao.all(`SELECT * FROM main ORDER BY month, day`)
   }
 
-
-  // skipping the update and delete for now
 }

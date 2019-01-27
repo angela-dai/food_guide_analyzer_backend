@@ -10,9 +10,7 @@ class AssociationsRepository {
         mainId INTEGER,
         tagsTag TEXT,
         CONSTRAINT associations_fk_mainId FOREIGN KEY (mainId)
-          REFERENCES main(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT tasks_fk_tagsTag FOREIGN KEY (tagsTag)
-        REFERENCES tags(tag) ON UPDATE CASCADE ON DELETE CASCADE)`
+          REFERENCES main(id) ON UPDATE CASCADE ON DELETE CASCADE,)`
     return this.dao.run(sql)
   }
 
