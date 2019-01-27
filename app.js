@@ -9,6 +9,15 @@ const secure_keys = require('./secure_keys.json');
 const app = express();
 const port = 3001;
 
+function getFilterList() {
+    file = fs.readFileSync('./filter_foods');
+    return file.toString().split(/\r?\n/);
+}
+
+filterList = getFilterList();
+filterList.pop();
+filterList.forEach(word => console.log(word));
+
 function postToAzure(path, res) {
     request({
         url: 'http://canadacentral.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags',
@@ -26,7 +35,21 @@ function postToAzure(path, res) {
             //
             console.log(response.toString('utf8'));
             console.log(body.toString('utf8'));
-            res.send(body)
+            tags = JSON.parse(body)
+                .tags
+                .map(data => data.name)
+                .filter(word => {
+                    return filterList.some(filterWord => {
+                        if(filterWord.includes(word) || word.includes(filterWord)) {
+                            console.log(`${word} matches ${filterWord}`);
+                            return true;
+                        }
+                        return false;
+                    });
+                });
+
+            console.log(tags);
+            res.send(JSON.stringify({"tags": tags}));
         }
     });
 }
