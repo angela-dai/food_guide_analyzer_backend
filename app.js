@@ -17,8 +17,8 @@ function getFilterList() {
 }
 
 filterList = getFilterList();
+// Ghetto hack to remove blank string at end
 filterList.pop();
-filterList.forEach(word => console.log(word));
 
 function postToAzure(path, res) {
     request({
