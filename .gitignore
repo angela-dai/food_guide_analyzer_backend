@@ -24,3 +24,4 @@ yarn-error.log*
 
 #lmao
 secure_keys.json
+config.json
