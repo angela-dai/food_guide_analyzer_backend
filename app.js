@@ -35,21 +35,26 @@ function postToAzure(path, res) {
         } else {
             console.log(response.toString('utf8'));
             console.log(body.toString('utf8'));
-            tags = JSON.parse(body)
-                .tags
-                .map(data => data.name)
-                .filter(word => {
-                    return filterList.some(filterWord => {
-                        if(filterWord.includes(word) || word.includes(filterWord)) {
-                            console.log(`${word} matches ${filterWord}`);
-                            return true;
-                        }
-                        return false;
+            try {
+                tags = JSON.parse(body)
+                    .tags
+                    .map(data => data.name)
+                    .filter(word => {
+                        return filterList.some(filterWord => {
+                            if(filterWord.includes(word) || word.includes(filterWord)) {
+                                console.log(`${word} matches ${filterWord}`);
+                                return true;
+                            }
+                            return false;
+                        });
                     });
-                });
 
-            console.log(tags);
-            res.send(JSON.stringify({"tags": tags}));
+                console.log(tags);
+                res.send(JSON.stringify({"tags": tags}));
+            } catch(err) {
+                console.log(err);
+                res.send(JSON.stringify({"err": err.toString()}));
+            }
         }
     });
 }
