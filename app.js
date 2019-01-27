@@ -15,10 +15,16 @@ function getFilterList() {
     file = fs.readFileSync('./filter_foods');
     return file.toString().split(/\r?\n/);
 }
+function getBlackList() {
+    file = fs.readFileSync('./blacklist');
+    return file.toString().split(/\r?\n/);
+}
 
 filterList = getFilterList();
+blackList = getBlackList();
 // Ghetto hack to remove blank string at end
 filterList.pop();
+blackList.pop();
 
 function postToAzure(path, res) {
     request({
@@ -42,7 +48,9 @@ function postToAzure(path, res) {
                     .map(data => data.name)
                     .filter(word => {
                         return filterList.some(filterWord => {
-                            if(filterWord.includes(word) || word.includes(filterWord)) {
+                            if((filterWord.includes(word)
+                                || word.includes(filterWord))
+                                && !blackList.includes(word)) {
                                 console.log(`${word} matches ${filterWord}`);
                                 return true;
                             }
