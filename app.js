@@ -9,7 +9,7 @@ const secure_keys = require('./secure_keys.json');
 const config = require('./config.json');
 
 const app = express();
-const port = config.port;
+const port = process.env.PORT || config.port;
 
 function getFilterList() {
     file = fs.readFileSync('./filter_foods');
